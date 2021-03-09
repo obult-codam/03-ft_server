@@ -14,4 +14,4 @@ echo "GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'root'@'localhost' WITH GRANT OPTI
 echo "FLUSH PRIVILEGES;"| mysql -u root --skip-password
 echo "update mysql.user set plugin='' where user='root';"| mysql -u root --skip-password
 
-bash
+bash next.sh

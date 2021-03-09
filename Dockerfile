@@ -17,9 +17,9 @@ RUN apt-get -y install openssl
 
 #NginX
 RUN service nginx start
-COPY srcs/onginx.conf /etc/nginx/sites-available/localhost
-RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled/
-RUN rm /etc/nginx/sites-enabled/default
+COPY srcs/onginx.conf /etc/nginx/sites-available/default
+#RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+#RUN rm /etc/nginx/sites-enabled/default
 
 #placing my own index.html
 #COPY srcs/index.html /var/www/html/
@@ -35,7 +35,6 @@ RUN mv phpMyAdmin-5.0.1-english /var/www/html/phpmyadmin
 COPY srcs/config.inc.php /var/www/html/phpmyadmin
 
 #wordpress
-#RUN wget -q https://wordpress.org/latest.tar.gz
 COPY srcs/*.tar.gz .
 RUN tar -xzf *.tar.gz && rm -rf *.tar.gz
 RUN mv wordpress /var/www/html/wordpress
@@ -49,7 +48,9 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html/*
 
 #startup
-COPY srcs/init.sh .
+COPY srcs/offginx.conf .
+COPY srcs/init.sh . 
+COPY srcs/next.sh .
 
 RUN service nginx start
 
