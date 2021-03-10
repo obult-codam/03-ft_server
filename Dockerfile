@@ -22,7 +22,7 @@ COPY srcs/onginx.conf /etc/nginx/sites-available/default
 #RUN rm /etc/nginx/sites-enabled/default
 
 #placing my own index.html
-#COPY srcs/index.html /var/www/html/
+COPY srcs/index.html /var/www/html/
 
 #phpmyadmin
 RUN wget -q https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.tar.gz
@@ -48,12 +48,15 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html/*
 
 #startup
+COPY srcs/phpmyadmin.sql .
 COPY srcs/offginx.conf .
 COPY srcs/init.sh . 
 COPY srcs/next.sh .
+RUN chmod 711 init.sh
+#RUN service nginx start
 
-RUN service nginx start
+RUN ./init.sh
 
 EXPOSE 80 443
 
-CMD bash init.sh
+CMD bash next.sh
