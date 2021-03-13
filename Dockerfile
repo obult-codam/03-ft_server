@@ -37,7 +37,7 @@ RUN chmod -R 755 /var/www/html/*
 COPY srcs/onginx.conf /etc/nginx/sites-available/default
 COPY srcs/phpmyadmin.sql .
 COPY srcs/offginx.conf .
-COPY srcs/*.sh . 
+COPY srcs/*.sh ./ 
 COPY srcs/index.html /var/www/html/
 
 # Startup
